@@ -4,6 +4,10 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+require("dotenv").config();
+
+var pool = require("./models/bd");
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var loginRouter = require("./routes/admin/login"); //login.js
@@ -23,6 +27,48 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin/login", loginRouter);
+
+//select
+pool
+  .query("select nombre, edad, salario from empleados")
+  .then(function (resultado) {
+    console.log(resultado);
+  });
+
+//insert
+/*var obj = {
+  nombre: "Juan",
+  apellido: "Lopez",
+  trabajo: "docente",
+  edad: 30,
+  salario: 1500,
+  mail: "juanlopez@gmail.com",
+};
+
+pool.query("insert into empleados set ?", [obj]).then(function (resultados) {
+  console.log(resultados);
+});*/
+
+//update
+/*var id = 24;
+var obj = {
+  nombre: "Pablo",
+  apellido: "Gomez",
+};
+
+pool
+  .query("update empleados set ? where id_emp=?", [obj, id])
+  .then(function (resultados) {
+    console.log(resultados);
+  });*/
+
+//delete
+/*var id = 23;
+pool
+  .query("delete from empleados where id_emp=?", [id])
+  .then(function (resultados) {
+    console.log(resultados);
+  });*/
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
