@@ -5,12 +5,12 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 require("dotenv").config();
-
-var pool = require("./models/bd");
+var session = require("express-session");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var loginRouter = require("./routes/admin/login"); //login.js
+var adminRouter = require("./routes/admin/novedades"); //novedades.js
 
 var app = express();
 
@@ -24,51 +24,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(
+  session({
+    secret: "EV2023qwerty",
+    cookie: { maxAge: null },
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+secured = async (req, res, next) => {
+  try {
+    console.log(req.session.id_usuario);
+    if (req.session.id_usuario) {
+      next();
+    } else {
+      res.redirect("/admin/login");
+    } // cierro else
+  } catch (error) {
+    console.log(error);
+  } // cierro catch error
+}; // cierro secured
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin/login", loginRouter);
-
-//select
-pool
-  .query("select nombre, edad, salario from empleados")
-  .then(function (resultado) {
-    console.log(resultado);
-  });
-
-//insert
-/*var obj = {
-  nombre: "Juan",
-  apellido: "Lopez",
-  trabajo: "docente",
-  edad: 30,
-  salario: 1500,
-  mail: "juanlopez@gmail.com",
-};
-
-pool.query("insert into empleados set ?", [obj]).then(function (resultados) {
-  console.log(resultados);
-});*/
-
-//update
-/*var id = 24;
-var obj = {
-  nombre: "Pablo",
-  apellido: "Gomez",
-};
-
-pool
-  .query("update empleados set ? where id_emp=?", [obj, id])
-  .then(function (resultados) {
-    console.log(resultados);
-  });*/
-
-//delete
-/*var id = 23;
-pool
-  .query("delete from empleados where id_emp=?", [id])
-  .then(function (resultados) {
-    console.log(resultados);
-  });*/
+app.use("/admin/novedades", secured, adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
