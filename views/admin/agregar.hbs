@@ -1,0 +1,33 @@
+<section class="contacto" id="contacto">
+
+  <h1 class="heading">Agregando!</h1>
+
+  <div class="row">
+
+    <form action="/admin/novedades/agregar" method="post">
+      <h3>Agregar una nueva novedad</h3>
+
+      <div class="inputBox">
+        <span class="fas fa-pen"></span>
+        <input type="text" placeholder="Titulo" name="titulo" />
+      </div>
+
+      <div class="inputBox">
+        <span class="fas fa-pen"></span>
+        <input type="text" placeholder="Subtitulo" name="subtitulo" />
+      </div>
+
+      <div class="inputBox">
+        <span class="fas fa-pen"></span>
+        <input type="text" placeholder="Cuerpo" />
+        <textarea name="cuerpo"></textarea>
+      </div>
+
+      <input type="submit" value="guardar" class="btn" />
+
+    </form>
+    {{#if error}}
+      <h5>{{message}}</h5>
+    {{/if}}
+  </div>
+</section>
