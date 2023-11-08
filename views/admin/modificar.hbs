@@ -1,0 +1,46 @@
+<section class="contacto" id="contacto">
+
+  <h1 class="heading">Modificando!</h1>
+
+  <div class="row">
+
+    <form action="/admin/novedades/modificar" method="post">
+      <h3>Modificar la novedad</h3>
+      <input type="hidden" placeholder="Id" name="id" value="{{novedad.id}}" />
+
+      <div class="inputBox">
+        <span class="fas fa-pen"></span>
+        <input
+          type="text"
+          placeholder="Titulo"
+          name="titulo"
+          value="{{novedad.titulo}}"
+        />
+      </div>
+
+      <div class="inputBox">
+        <span class="fas fa-pen"></span>
+        <input
+          type="text"
+          placeholder="Subtitulo"
+          name="subtitulo"
+          value="{{novedad.subtitulo}}"
+        />
+      </div>
+
+      <div class="inputBox">
+        <span class="fas fa-pen"></span>
+        <textarea
+          name="cuerpo"
+          placeholder="Cuerpo"
+        >{{novedad.cuerpo}}</textarea>
+      </div>
+
+      <input type="submit" value="Modificar" class="btn" />
+
+    </form>
+    {{#if error}}
+      <h5>{{message}}</h5>
+    {{/if}}
+  </div>
+</section>
