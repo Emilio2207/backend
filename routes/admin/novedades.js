@@ -58,7 +58,7 @@ router.get("/modificar/:id", async (req, res, next) => {
   console.log(req.params.id);
   var novedad = await novedadesModel.getNovedadById(id);
 
-  res.render("/admin/modificar", {
+  res.render("admin/modificar", {
     layout: "admin/layout",
     novedad,
   });
