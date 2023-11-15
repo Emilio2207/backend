@@ -4,7 +4,11 @@
 
   <div class="row">
 
-    <form action="/admin/novedades/agregar" method="post">
+    <form
+      action="/admin/novedades/agregar"
+      method="post"
+      enctype="multipart/form-data"
+    >
       <h3>Agregar una nueva novedad</h3>
 
       <div class="inputBox">
@@ -15,6 +19,11 @@
       <div class="inputBox">
         <span class="fas fa-pen"></span>
         <input type="text" placeholder="Subtitulo" name="subtitulo" />
+      </div>
+
+      <div class="inputBox">
+        <span class="fas fa-images"></span>
+        <input type="file" placeholder="Imagen" name="imagen" id="imagen" />
       </div>
 
       <div class="inputBox">
